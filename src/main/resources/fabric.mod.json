@@ -1,0 +1,20 @@
+{
+	"schemaVersion": 1,
+	"id": "tyezh",
+	"version": "${version}",
+	"name": "Ты Еж — главное меню",
+	"description": "Пастельное пиксельное главное меню в стиле «ретро-рабочего стола» для сборки ванилла+. Фыр!",
+	"authors": ["Ты Еж"],
+	"license": "MIT",
+	"icon": "assets/tyezh/icon.png",
+	"environment": "client",
+	"mixins": ["tyezh.mixins.json"],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25"
+	},
+	"suggests": {
+		"modmenu": "*"
+	}
+}

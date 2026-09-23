@@ -1,0 +1,34 @@
+{
+	"tyezh.title": "Ты Еж",
+	"tyezh.menu.singleplayer": "Singleplayer",
+	"tyezh.menu.multiplayer": "Multiplayer",
+	"tyezh.menu.realms": "Realms",
+	"tyezh.menu.mods": "Mods",
+	"tyezh.menu.options": "Settings",
+	"tyezh.menu.quit": "Exit",
+
+	"tyezh.window.main": "ty_ezh.exe - snuff!",
+	"tyezh.window.walk": "walk.png",
+	"tyezh.window.babies": "hoglets.zip",
+	"tyezh.window.status": "status",
+
+	"tyezh.status.online": "Hedgehogs: 1",
+	"tyezh.status.needles": "Spikes",
+	"tyezh.status.cute": "Cuteness",
+	"tyezh.status.sleepy": "Sleepy",
+
+	"tyezh.version": "Minecraft %s • vanilla+",
+
+	"tyezh.splash.0": "Snuff-snuff!",
+	"tyezh.splash.1": "Spiky but cute!",
+	"tyezh.splash.2": "Vanilla, but with spikes",
+	"tyezh.splash.3": "Careful: it pokes!",
+	"tyezh.splash.4": "Have an apple!",
+	"tyezh.splash.5": "Hedgehog is a lifestyle",
+	"tyezh.splash.6": "Tip-tap at night",
+	"tyezh.splash.7": "Curl up into a ball",
+	"tyezh.splash.8": "You are a hedgehog. Deal with it.",
+	"tyezh.splash.9": "One hundred percent spikes!",
+	"tyezh.splash.10": "Hedgehog in the fog approves",
+	"tyezh.splash.11": "Don't pet against the spikes!"
+}

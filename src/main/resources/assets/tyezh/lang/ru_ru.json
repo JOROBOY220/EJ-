@@ -1,0 +1,34 @@
+{
+	"tyezh.title": "Ты Еж",
+	"tyezh.menu.singleplayer": "Одиночная игра",
+	"tyezh.menu.multiplayer": "Сетевая игра",
+	"tyezh.menu.realms": "Миры Realms",
+	"tyezh.menu.mods": "Моды",
+	"tyezh.menu.options": "Настройки",
+	"tyezh.menu.quit": "Выход",
+
+	"tyezh.window.main": "ты_еж.exe — фыр!",
+	"tyezh.window.walk": "прогулка.png",
+	"tyezh.window.babies": "ежата.zip",
+	"tyezh.window.status": "статус",
+
+	"tyezh.status.online": "Ёжиков: 1",
+	"tyezh.status.needles": "Иголки",
+	"tyezh.status.cute": "Милота",
+	"tyezh.status.sleepy": "Сонный",
+
+	"tyezh.version": "Minecraft %s • ванилла+",
+
+	"tyezh.splash.0": "Фыр-фыр!",
+	"tyezh.splash.1": "Колючий, но милый!",
+	"tyezh.splash.2": "Ванилла, но с иголочками",
+	"tyezh.splash.3": "Осторожно: колется!",
+	"tyezh.splash.4": "Яблочко в подарок!",
+	"tyezh.splash.5": "Ёж — это стиль жизни",
+	"tyezh.splash.6": "Топ-топ по ночам",
+	"tyezh.splash.7": "Свернись клубочком",
+	"tyezh.splash.8": "Ты Еж. Смирись.",
+	"tyezh.splash.9": "Сто процентов иголок!",
+	"tyezh.splash.10": "Ёжик в тумане одобряет",
+	"tyezh.splash.11": "Не гладь против шерсти!"
+}
