@@ -28,13 +28,10 @@ import net.minecraft.resources.Identifier;
  */
 public class TyEzhTitleScreen extends Screen {
 	// ---------------------------------------------------------------- текстуры
-	private static final Identifier SKY = TyEzhMenu.id("textures/gui/sky.png");
-	private static final Identifier CLOUDS = TyEzhMenu.id("textures/gui/clouds.png");
 	private static final Identifier PANEL = TyEzhMenu.id("textures/gui/panel.png");
 	private static final Identifier HEDGEHOG = TyEzhMenu.id("textures/gui/hedgehog.png");
 	private static final Identifier HEDGEHOG_BLINK = TyEzhMenu.id("textures/gui/hedgehog_blink.png");
 
-	private static final int SKY_W = 480, SKY_H = 270;
 	private static final int COMP_W = 400, COMP_H = 225;
 	private static final int HOG_W = 78, HOG_H = 69;
 	private static final int HOG_X = 211, HOG_Y = 190 - HOG_H;
@@ -57,15 +54,6 @@ public class TyEzhTitleScreen extends Screen {
 	private static final int D_FILL = 0xFFE6E2EE;
 	private static final int D_TEXT = 0xFFA49EB8;
 
-	private static final String[] HEART = {
-			".##.##.",
-			"#######",
-			"#######",
-			".#####.",
-			"..###..",
-			"...#..."
-	};
-
 	private static final int SPLASH_COUNT = 12;
 	private static final Random RANDOM = new Random();
 
@@ -74,9 +62,9 @@ public class TyEzhTitleScreen extends Screen {
 	// ---------------------------------------------------------------- состояние
 	private final long openedAt = System.currentTimeMillis();
 	private final Component splash;
-	private final float[][] stars;
-	private final float[][] floaters;
 	private final List<Entry> entries = new ArrayList<>();
+	/** Время последнего «поглаживания» ёжика (сек от открытия), -1 — не гладили. */
+	private float pettedAt = -100f;
 	private Component versionLine = Component.empty();
 
 	/** Масштаб композиции и её левый верхний угол на экране. */
@@ -88,18 +76,6 @@ public class TyEzhTitleScreen extends Screen {
 	public TyEzhTitleScreen() {
 		super(Component.translatable("tyezh.title"));
 		this.splash = Component.translatable("tyezh.splash." + RANDOM.nextInt(SPLASH_COUNT));
-
-		Random r = new Random(1337);
-		this.stars = new float[46][];
-		for (int i = 0; i < stars.length; i++) {
-			// x, y (0..1), фаза, скорость, размер
-			stars[i] = new float[]{r.nextFloat(), r.nextFloat() * 0.8f, r.nextFloat() * 6.28f, 1.2f + r.nextFloat() * 2.2f, r.nextInt(3)};
-		}
-		this.floaters = new float[7][];
-		for (int i = 0; i < floaters.length; i++) {
-			// x (0..1), период, сдвиг, цвет
-			floaters[i] = new float[]{r.nextFloat(), 10f + r.nextFloat() * 8f, r.nextFloat(), r.nextInt(3)};
-		}
 	}
 
 	// ================================================================= init
@@ -149,6 +125,16 @@ public class TyEzhTitleScreen extends Screen {
 			this.addRenderableWidget(button);
 			this.entries.add(new Entry(button, label));
 		}
+
+		// Пасхалка: ёжика можно погладить — он подпрыгнет и фыркнет.
+		Button pet = Button.builder(Component.translatable("tyezh.hedgehog.pet"), b -> {
+					this.pettedAt = time();
+					TyEzhSounds.playSnuff();
+				})
+				.bounds(Math.round(ox + 219f * s), Math.round(oy + 124f * s), Math.round(66f * s), Math.round(64f * s))
+				.build();
+		pet.setAlpha(0f);
+		this.addRenderableWidget(pet);
 	}
 
 	/**
@@ -212,51 +198,8 @@ public class TyEzhTitleScreen extends Screen {
 		// Без super: никакой ванильной панорамы и размытия.
 		float t = time();
 
-		// --- небо (cover, без искажения пропорций)
-		float sk = Math.max(this.width / (float) SKY_W, this.height / (float) SKY_H);
-		float skyX = (this.width - SKY_W * sk) / 2f;
-		float skyY = (this.height - SKY_H * sk) / 2f;
-
-		g.pose().pushMatrix();
-		g.pose().translate(skyX, skyY);
-		g.pose().scale(sk, sk);
-		g.blit(RenderPipelines.GUI_TEXTURED, SKY, 0, 0, 0f, 0f, SKY_W, SKY_H, SKY_W, SKY_H);
-
-		// --- облака, медленно плывущие вправо (две копии для бесшовности)
-		float drift = (t * 5f) % SKY_W;
-		g.pose().pushMatrix();
-		g.pose().translate(drift, 0f);
-		g.blit(RenderPipelines.GUI_TEXTURED, CLOUDS, 0, 0, 0f, 0f, SKY_W, SKY_H, SKY_W, SKY_H);
-		g.blit(RenderPipelines.GUI_TEXTURED, CLOUDS, -SKY_W, 0, 0f, 0f, SKY_W, SKY_H, SKY_W, SKY_H);
-		g.pose().popMatrix();
-		g.pose().popMatrix();
-
-		// --- мерцающие звёздочки
-		int px = Math.max(1, Math.round(sk));
-		for (float[] st : stars) {
-			float b = 0.5f + 0.5f * (float) Math.sin(t * st[3] + st[2]);
-			if (b < 0.25f) {
-				continue;
-			}
-			int a = (int) (b * 230f);
-			int color = (a << 24) | (st[4] == 0 ? 0xFFFFFF : st[4] == 1 ? 0xFFF4C9 : 0xD9F6FF);
-			int cx = Math.round(st[0] * this.width);
-			int cy = Math.round(st[1] * this.height);
-			int arm = b > 0.8f ? 2 : 1;
-			g.fill(cx - arm * px, cy, cx + (arm + 1) * px, cy + px, color);
-			g.fill(cx, cy - arm * px, cx + px, cy + (arm + 1) * px, color);
-		}
-
-		// --- всплывающие сердечки
-		for (float[] f : floaters) {
-			float phase = ((t / f[1]) + f[2]) % 1f;
-			int hx = Math.round(f[0] * this.width + (float) Math.sin(t * 1.3f + f[2] * 10f) * 6f * px);
-			int hy = Math.round(this.height + 10 * px - phase * (this.height + 30 * px));
-			float fade = phase < 0.15f ? phase / 0.15f : phase > 0.8f ? (1f - phase) / 0.2f : 1f;
-			int a = (int) (fade * 170f);
-			int rgb = f[3] == 0 ? 0xFF9ED8 : f[3] == 1 ? 0x8FE8FF : 0xFFFFFF;
-			pixelHeart(g, hx, hy, px, (a << 24) | rgb);
-		}
+		// --- общее небо: облака, звёзды, сердечки
+		TyEzhBackdrop.drawSky(g, this.width, this.height);
 
 		// --- композиция: окна, логотип, ёжик
 		g.pose().pushMatrix();
@@ -265,7 +208,11 @@ public class TyEzhTitleScreen extends Screen {
 		g.blit(RenderPipelines.GUI_TEXTURED, PANEL, 0, 0, 0f, 0f, COMP_W, COMP_H, COMP_W, COMP_H);
 
 		float bob = (float) Math.sin(t * 2.2f) * 1.2f;
-		boolean blink = (t % 4.3f) < 0.16f;
+		float sincePet = t - pettedAt;
+		if (sincePet >= 0f && sincePet < 0.45f) {
+			bob -= (float) Math.sin(Math.PI * sincePet / 0.45f) * 10f;
+		}
+		boolean blink = (t % 4.3f) < 0.16f || (sincePet >= 0f && sincePet < 0.6f);
 		g.pose().pushMatrix();
 		g.pose().translate(0f, bob);
 		g.blit(RenderPipelines.GUI_TEXTURED, blink ? HEDGEHOG_BLINK : HEDGEHOG,
@@ -300,6 +247,25 @@ public class TyEzhTitleScreen extends Screen {
 		g.pose().scale(sk, sk);
 		g.text(this.font, this.splash, -sw / 2, -4, 0xFFFFF36B, true);
 		g.pose().popMatrix();
+
+		// --- пузырь «фыр!» после поглаживания
+		float sincePet = t - pettedAt;
+		if (sincePet >= 0f && sincePet < 1.3f) {
+			Component snuff = Component.translatable("tyezh.hedgehog.snuff");
+			int k = Math.max(1, Math.round(s * 0.6f));
+			int bw = (this.font.width(snuff) + 8) * k;
+			int bh = 14 * k;
+			int bx = Math.round(ox + 262f * s) - bw / 2;
+			int by = Math.round(oy + (110f - Math.min(1f, sincePet * 4f) * 6f) * s) - bh;
+			g.fill(bx - k, by - k, bx + bw + k, by + bh + k, 0xFFB6A8F5);
+			g.fill(bx, by, bx + bw, by + bh, 0xFFFFFFFF);
+			g.fill(bx + bw / 2 - k, by + bh, bx + bw / 2 + 2 * k, by + bh + 3 * k, 0xFFFFFFFF);
+			g.pose().pushMatrix();
+			g.pose().translate(bx + 4f * k, by + 3f * k);
+			g.pose().scale(k, k);
+			g.text(this.font, snuff, 0, 0, 0xFFE0489A, false);
+			g.pose().popMatrix();
+		}
 
 		// --- кнопки
 		for (Entry e : this.entries) {
@@ -412,23 +378,7 @@ public class TyEzhTitleScreen extends Screen {
 
 		// сердечко слева при наведении
 		if (hov && (w - textW) / 2f > 9 * u) {
-			pixelHeart(g, x + 3 * u, y + h / 2 - 3 * u, u, 0xFFFF5FA8);
-		}
-	}
-
-	private static void pixelHeart(GuiGraphicsExtractor g, int x, int y, int u, int color) {
-		for (int row = 0; row < HEART.length; row++) {
-			String line = HEART[row];
-			int start = -1;
-			for (int col = 0; col <= line.length(); col++) {
-				boolean on = col < line.length() && line.charAt(col) == '#';
-				if (on && start < 0) {
-					start = col;
-				} else if (!on && start >= 0) {
-					g.fill(x + start * u, y + row * u, x + col * u, y + (row + 1) * u, color);
-					start = -1;
-				}
-			}
+			TyEzhBackdrop.pixelHeart(g, x + 3 * u, y + h / 2 - 3 * u, u, 0xFFFF5FA8);
 		}
 	}
 }

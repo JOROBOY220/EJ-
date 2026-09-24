@@ -4,7 +4,9 @@
 	"package": "ru.tyezh.menu.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"GuiMixin"
+		"GuiMixin",
+		"ScreenMixin",
+		"AbstractWidgetMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

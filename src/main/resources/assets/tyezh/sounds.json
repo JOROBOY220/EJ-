@@ -1,0 +1,13 @@
+{
+	"ui.hover": {
+		"sounds": [
+			{ "name": "tyezh:ui/hover", "volume": 0.7 }
+		]
+	},
+	"ui.snuff": {
+		"sounds": [
+			{ "name": "tyezh:ui/snuff1", "volume": 1.0 },
+			{ "name": "tyezh:ui/snuff2", "volume": 1.0 }
+		]
+	}
+}

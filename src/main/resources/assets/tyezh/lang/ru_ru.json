@@ -6,19 +6,15 @@
 	"tyezh.menu.mods": "Моды",
 	"tyezh.menu.options": "Настройки",
 	"tyezh.menu.quit": "Выход",
-
 	"tyezh.window.main": "ты_еж.exe — фыр!",
 	"tyezh.window.walk": "прогулка.png",
 	"tyezh.window.babies": "ежата.zip",
 	"tyezh.window.status": "статус",
-
 	"tyezh.status.online": "Ёжиков: 1",
 	"tyezh.status.needles": "Иголки",
 	"tyezh.status.cute": "Милота",
 	"tyezh.status.sleepy": "Сонный",
-
 	"tyezh.version": "Minecraft %s • ванилла+",
-
 	"tyezh.splash.0": "Фыр-фыр!",
 	"tyezh.splash.1": "Колючий, но милый!",
 	"tyezh.splash.2": "Ванилла, но с иголочками",
@@ -30,5 +26,15 @@
 	"tyezh.splash.8": "Ты Еж. Смирись.",
 	"tyezh.splash.9": "Сто процентов иголок!",
 	"tyezh.splash.10": "Ёжик в тумане одобряет",
-	"tyezh.splash.11": "Не гладь против шерсти!"
+	"tyezh.splash.11": "Не гладь против шерсти!",
+	"tyezh.hedgehog.pet": "Погладить ёжика",
+	"tyezh.hedgehog.snuff": "фыр!",
+	"tyezh.loading.0": "Ёжик роет норку…",
+	"tyezh.loading.1": "Собираем яблоки и грибы…",
+	"tyezh.loading.2": "Точим иголочки…",
+	"tyezh.loading.3": "Сворачиваемся клубочком…",
+	"tyezh.loading.4": "Ищем самые мягкие листья…",
+	"tyezh.loading.5": "Фыркаем на генератор мира…",
+	"tyezh.loading.6": "Раскладываем звёзды по небу…",
+	"tyezh.loading.7": "Ещё чуть-чуть, фыр!"
 }

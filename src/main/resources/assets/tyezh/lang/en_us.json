@@ -6,19 +6,15 @@
 	"tyezh.menu.mods": "Mods",
 	"tyezh.menu.options": "Settings",
 	"tyezh.menu.quit": "Exit",
-
 	"tyezh.window.main": "ty_ezh.exe - snuff!",
 	"tyezh.window.walk": "walk.png",
 	"tyezh.window.babies": "hoglets.zip",
 	"tyezh.window.status": "status",
-
 	"tyezh.status.online": "Hedgehogs: 1",
 	"tyezh.status.needles": "Spikes",
 	"tyezh.status.cute": "Cuteness",
 	"tyezh.status.sleepy": "Sleepy",
-
 	"tyezh.version": "Minecraft %s • vanilla+",
-
 	"tyezh.splash.0": "Snuff-snuff!",
 	"tyezh.splash.1": "Spiky but cute!",
 	"tyezh.splash.2": "Vanilla, but with spikes",
@@ -30,5 +26,15 @@
 	"tyezh.splash.8": "You are a hedgehog. Deal with it.",
 	"tyezh.splash.9": "One hundred percent spikes!",
 	"tyezh.splash.10": "Hedgehog in the fog approves",
-	"tyezh.splash.11": "Don't pet against the spikes!"
+	"tyezh.splash.11": "Don't pet against the spikes!",
+	"tyezh.hedgehog.pet": "Pet the hedgehog",
+	"tyezh.hedgehog.snuff": "snuff!",
+	"tyezh.loading.0": "Hedgehog is digging a burrow…",
+	"tyezh.loading.1": "Gathering apples and mushrooms…",
+	"tyezh.loading.2": "Sharpening the spikes…",
+	"tyezh.loading.3": "Curling up into a ball…",
+	"tyezh.loading.4": "Looking for the softest leaves…",
+	"tyezh.loading.5": "Snuffing at the world generator…",
+	"tyezh.loading.6": "Placing stars across the sky…",
+	"tyezh.loading.7": "Almost there, snuff!"
 }
